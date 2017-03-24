@@ -4,9 +4,17 @@ function solve() {
 
         if (typeof input === 'string') {
             itemSelected = document.getElementById(input)
+
+            if (!itemSelected) {
+                throw Error;
+            }
+        } else if (input instanceof HTMLElement) {
+            itemSelected = input;
+        } else {
+            throw Error;
         }
-        var buttons = Array.from(itemSelected.getElementsByClassName('button')),
-            contents = Array.from(itemSelected.getElementsByClassName('content'));
+        var buttons = [].slice.apply(itemSelected.getElementsByClassName('button')),
+            contents = [].slice.apply(itemSelected.getElementsByClassName('content'));
 
 
         for (but of buttons) {
