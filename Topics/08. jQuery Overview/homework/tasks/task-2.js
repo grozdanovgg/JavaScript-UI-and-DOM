@@ -1,26 +1,98 @@
-/* globals $ */
-
-/*
-Create a function that takes a selector and:
-* Finds all elements with class `button` or `content` within the provided element
-  * Change the content of all `.button` elements with "hide"
-* When a `.button` is clicked:
-  * Find the topmost `.content` element, that is before another `.button` and:
-    * If the `.content` is visible:
-      * Hide the `.content`
-      * Change the content of the `.button` to "show"       
-    * If the `.content` is hidden:
-      * Show the `.content`
-      * Change the content of the `.button` to "hide"
-    * If there isn't a `.content` element **after the clicked `.button`** and **before other `.button`**, do nothing
-* Throws if:
-  * The provided ID is not a **jQuery object** or a `string` 
-
-*/
 function solve() {
-  return function (selector) {
-    
-  };
+    return function(input) {
+        if (!input) {
+            throw Error
+        }
+        var $itemSelected = $(input),
+            $buttons = $itemSelected.find('.button');
+        if ($itemSelected.length < 1) {
+            throw Error;
+        }
+
+        $buttons.each(function(index, value) {
+            value.innerHTML = 'hide';
+            value.addEventListener('click', changeButton);
+        });
+
+        function changeButton(event) {
+            var element = event.target,
+                nextElement = element.nextElementSibling;
+
+            while (nextElement.className !== 'button' &&
+                nextElement.className !== 'content') {
+                nextElement = nextElement.nextElementSibling;
+            }
+            if (nextElement.className === 'content') {
+                if (element.innerHTML === 'hide') {
+                    nextElement.style.display = 'none';
+                    element.innerHTML = 'show';
+                } else {
+                    nextElement.style.display = '';
+                    element.innerHTML = 'hide';
+                }
+            }
+            nextElement = element.nextElementSibling;
+        }
+    };
 };
 
 module.exports = solve;
+
+// function solve() {
+//     return function(selector) {
+
+//         var $buttons = $(selector).find('.button'),
+//             $contents = $(selector).find('.conten');
+
+//         for ($but of $buttons) {
+//             $($but).html('hide');
+//             $($but).on('click', changeButton);
+//         }
+
+// function changeButton() {
+//     var $element = $(this)[0],
+//         nextElement = $element.nextElementSibling;
+//     console.log($element.className);
+//     console.log(nextElement.className);
+//     console.log($element);
+
+//     console.log($element.attr('class'));
+
+//     while (nextElement.className !== 'button' &&
+//         nextElement.className !== 'content') {
+//         nextElement = nextElement.nextElementSibling;
+//     }
+//     if (nextElement.className === 'content') {
+//         if ($element.innerHTML === 'hide') {
+//             nextElement.style.display = 'none';
+//             $element.innerHTML = 'show';
+//         } else {
+//             nextElement.style.display = '';
+//             $element.innerHTML = 'hide';
+//         }
+//     }
+//     nextElement = $element.nextElementSibling;
+// }
+//         function changeButton(event) {
+//             var element = event.target,
+//                 nextElement = element.nextElementSibling;
+
+//             while (nextElement.className !== 'button' &&
+//                 nextElement.className !== 'content') {
+//                 nextElement = nextElement.nextElementSibling;
+//             }
+//             if (nextElement.className === 'content') {
+//                 if (element.innerHTML === 'hide') {
+//                     nextElement.style.display = 'none';
+//                     element.innerHTML = 'show';
+//                 } else {
+//                     nextElement.style.display = '';
+//                     element.innerHTML = 'hide';
+//                 }
+//             }
+//             nextElement = element.nextElementSibling;
+//         }
+//     };
+// };
+
+// module.exports = solve;
