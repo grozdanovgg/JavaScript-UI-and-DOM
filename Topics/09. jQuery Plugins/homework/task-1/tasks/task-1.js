@@ -34,7 +34,7 @@ function solve() {
         function onButtonClick() {
             $(this)
                 .text('Select a value');
-            $()
+            $().
 
         };
 
