@@ -28,17 +28,25 @@ function solve() {
                     .attr('data-value', 'value-' + (index + 1))
                     .attr('data-index', index)
                     .text('Option ' + (index + 1))
+                    .on('click', onOptionClick)
                     .appendTo($optionsDiv);
             });
+
 
         function onButtonClick() {
             $(this)
                 .text('Select a value');
-            $().
-
+            $optionsDiv.show();
         };
 
-        // $($mainDiv).insertAfter('h1');
+
+        function onOptionClick() {
+
+            $currentDiv.text($(this).text());
+            $select.val($(this).attr('data-value'))
+            $optionsDiv.css('display', 'none');
+
+        }
         $('body').append($mainDiv);
 
 
