@@ -8,19 +8,19 @@ function solve() {
 
         imgPreview.className = 'image-preview';
         searchBox.addEventListener('input', filterImgs);
-        imgList.appendChild(searchBox);
         /* START setting up list images in the div*/
         for (var obj of items) {
             var imgToAdd = document.createElement('img'),
                 imgContainer = document.createElement('div'),
-                imgTitteToAdd = document.createElement('p');
+                imgTitteToAdd = document.createElement('strong');
 
             imgToAdd.title = obj.title;
             imgToAdd.src = obj.url;
             imgTitteToAdd.innerHTML = imgToAdd.title;
             imgContainer.className = 'image-container';
-            imgContainer.addEventListener('mouseover', hoverImg)
-            imgContainer.addEventListener('mouseout', hoverImg)
+            imgContainer.addEventListener('mouseover', hoverImg);
+            imgContainer.addEventListener('mouseout', hoverImg);
+            imgContainer.addEventListener('click', changeTopImg);
 
 
             imgContainer.appendChild(imgTitteToAdd);
@@ -31,11 +31,17 @@ function solve() {
         // console.log(imgList.children[1]);
 
         var firstImg = document.createElement('img'),
-            imgTitleCopy = imgList.children[1].children[1].getAttribute('title'),
-            imgSrceCopy = imgList.children[1].children[1].getAttribute('src');
+            imgTitleCopy = imgList.children[0].children[1].getAttribute('title'),
+            imgSrceCopy = imgList.children[0].children[1].getAttribute('src'),
+            imgTitteForPreview = document.createElement('strong');
+
+        imgTitteForPreview.innerText = imgTitleCopy;
+
         firstImg.setAttribute('title', imgTitleCopy);
         firstImg.setAttribute('src', imgSrceCopy);
 
+        imgList.appendChild(searchBox);
+        imgPreview.appendChild(imgTitteForPreview);
         imgPreview.appendChild(firstImg);
         root.appendChild(imgPreview);
         root.appendChild(imgList);
