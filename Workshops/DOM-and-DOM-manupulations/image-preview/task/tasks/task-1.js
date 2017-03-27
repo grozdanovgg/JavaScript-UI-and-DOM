@@ -70,6 +70,17 @@ function solve() {
                 }
             }
         };
+
+        function changeTopImg() {
+            var newTopImgSrc = this.children[1].getAttribute('src'),
+                newTopImgTitle = this.children[1].getAttribute('title');
+            console.log(newTopImgSrc);
+            firstImg.setAttribute('src', newTopImgSrc);
+            firstImg.setAttribute('title', newTopImgTitle);
+            imgTitteForPreview.innerText = firstImg.getAttribute('title');
+            // console.log(firstImg);
+
+        };
     };
 }
 
