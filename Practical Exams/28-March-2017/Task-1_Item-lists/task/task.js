@@ -1,18 +1,19 @@
 function solve() {
 
     return function(selector, defaultLeft, defaultRight) {
-        var leftComumnData = defaultLeft || [],
+        var leftColumnData = defaultLeft || [],
             rightColumnData = defaultRight || [],
             root = document.querySelector(selector);
 
 
         var olElementLeft = document.createElement('ol');
-        for (var itemleft of leftComumnData) {
+        for (var index = 0; index < leftColumnData.length; index += 1) {
             var deleteImgLeft = document.createElement('img');
             deleteImgLeft.className = 'delete';
             deleteImgLeft.setAttribute('src', 'imgs/Remove-icon.png');
+            deleteImgLeft.addEventListener('click', deleteItem);
 
-            var textNodeLeft = document.createTextNode(itemleft);
+            var textNodeLeft = document.createTextNode(leftColumnData[index]);
 
             var liLeft = document.createElement('li');
             liLeft.className = 'entry';
@@ -22,13 +23,30 @@ function solve() {
             olElementLeft.appendChild(liLeft);
         }
 
+        // for (var itemleft of leftColumnData) {
+        //     var deleteImgLeft = document.createElement('img');
+        //     deleteImgLeft.className = 'delete';
+        //     deleteImgLeft.setAttribute('src', 'imgs/Remove-icon.png');
+        //     deleteImgLeft.addEventListener('click', deleteItem);
+
+        //     var textNodeLeft = document.createTextNode(itemleft);
+
+        //     var liLeft = document.createElement('li');
+        //     liLeft.className = 'entry';
+
+        //     liLeft.appendChild(deleteImgLeft);
+        //     liLeft.appendChild(textNodeLeft);
+        //     olElementLeft.appendChild(liLeft);
+        // }
+
         var olElementRight = document.createElement('ol');
-        for (var itemright of rightColumnData) {
+        for (var jindex = 0; jindex < rightColumnData.length; jindex += 1) {
             var deleteImgRight = document.createElement('img');
             deleteImgRight.className = 'delete';
             deleteImgRight.setAttribute('src', 'imgs/Remove-icon.png');
+            deleteImgRight.addEventListener('click', deleteItem);
 
-            var textNodeRight = document.createTextNode(itemright);
+            var textNodeRight = document.createTextNode(rightColumnData[jindex]);
 
             var liRight = document.createElement('li');
             liRight.className = 'entry';
@@ -37,6 +55,22 @@ function solve() {
             liRight.appendChild(textNodeRight);
             olElementRight.appendChild(liRight);
         }
+
+        // for (var itemright of rightColumnData) {
+        //     var deleteImgRight = document.createElement('img');
+        //     deleteImgRight.className = 'delete';
+        //     deleteImgRight.setAttribute('src', 'imgs/Remove-icon.png');
+        //     deleteImgRight.addEventListener('click', deleteItem);
+
+        //     var textNodeRight = document.createTextNode(itemright);
+
+        //     var liRight = document.createElement('li');
+        //     liRight.className = 'entry';
+
+        //     liRight.appendChild(deleteImgRight);
+        //     liRight.appendChild(textNodeRight);
+        //     olElementRight.appendChild(liRight);
+        // }
 
         var labelForRadioButtonLeft = document.createElement('label');
         labelForRadioButtonLeft.setAttribute('for', 'select-left-column');
@@ -106,6 +140,7 @@ function solve() {
             var deleteImgNew = document.createElement('img');
             deleteImgNew.className = 'delete';
             deleteImgNew.setAttribute('src', 'imgs/Remove-icon.png');
+            deleteImgNew.addEventListener('click', deleteItem);
             var newLi = document.createElement('li');
             newLi.className = 'entry';
             var textNodeNew = document.createTextNode(textNodeToAdd);
@@ -115,7 +150,13 @@ function solve() {
                 collumnToAdd.appendChild(newLi);
                 root.children[1].value = '';
             }
+        }
 
+        function deleteItem() {
+            var selectedTarger = event.target.parentElement,
+                inputElementDefault = root.children[1];
+            inputElementDefault.value = this.parentElement.innerText;
+            this.parentElement.parentElement.removeChild(selectedTarger);
         }
     };
 }
