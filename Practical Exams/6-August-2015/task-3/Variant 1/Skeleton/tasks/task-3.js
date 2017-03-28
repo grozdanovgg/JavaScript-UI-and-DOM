@@ -1,49 +1,33 @@
 function solve() {
     return function(selector) {
         var template = [
-            '<h1>{{title}}</h1>',
-            '<ul>',
-            '	{{#each posts}}',
-            '		<li>',
-            '			<div class="post">',
-            '				<p class="author">',
-            '					{{#if author}}',
-            '						<a class="user" href="/user/{{author}}">{{author}}</a>',
-            '					{{else}}',
-            '						<a class="anonymous">Anonymous</a>',
-            '					{{/if}}',
-            '				</p>',
-            '				<pre class="content">{{{text}}}</pre>',
-            '			</div>',
-            '			<ul>',
-            '			{{#each comments}}',
-            '			{{#if deleted}}',
-            '				{{else}}',
-            '				<li>',
-            '					<div class="comment">',
-            '						{{#if author}}',
-            '						<p class="author">',
-            '							<a class="user" href="/user/{{author}}">{{author}}</a>',
-            '						</p>',
-            '					<pre class="content">{{{text}}}</pre>',
-            '						{{else}}',
-            '						<p class="author">',
-            '							<a class="anonymous">Anonymous</a>',
-            '						</p>',
-            '					<pre class="content">{{{text}}}</pre>',
-            '						{{/if}}',
-            '					</div>',
-            '				</li>',
-            '			{{/if}}',
-            '			{{/each}}',
-            '			</ul>',
-            '		</li>',
-            '		{{/each}}',
-            '</ul>'
+            '<div class="event-calendar">',
+            '<h2 class="header">Appointments for',
+            '    <span class="month">{{month}}</span>',
+            '    <span class="year">{{year}}</span>',
+            '</h2>',
+            '{{#days}}',
+            '<div class="col-date">',
+            '    <div class="date">{{day}}</div>',
+            '    <div class="events">',
+            '        {{#events}}',
+            '        <div class="event {{importance}}">',
+            '            {{#if title}}',
+            '            <div class="title">{{title}}</div>',
+            '            {{else}}',
+            '            <div class="title">Free slot</div>',
+            '            {{/if}} {{#if time}}',
+            '            <div class="time">at: {{time}}</div>',
+            '            {{/if}}',
+            '        </div>',
+            '        {{/events}}',
+            '    </div>',
+            '</div>',
+            '{{/days}}'
         ].join('');
 
-
-        document.getElementById(selector).innerHTML = template;
-
+        if (template.length) {
+            document.getElementById(selector).innerHTML = template;
+        }
     };
 }
