@@ -23,22 +23,6 @@ function solve() {
             olElementLeft.appendChild(liLeft);
         }
 
-        // for (var itemleft of leftColumnData) {
-        //     var deleteImgLeft = document.createElement('img');
-        //     deleteImgLeft.className = 'delete';
-        //     deleteImgLeft.setAttribute('src', 'imgs/Remove-icon.png');
-        //     deleteImgLeft.addEventListener('click', deleteItem);
-
-        //     var textNodeLeft = document.createTextNode(itemleft);
-
-        //     var liLeft = document.createElement('li');
-        //     liLeft.className = 'entry';
-
-        //     liLeft.appendChild(deleteImgLeft);
-        //     liLeft.appendChild(textNodeLeft);
-        //     olElementLeft.appendChild(liLeft);
-        // }
-
         var olElementRight = document.createElement('ol');
         for (var jindex = 0; jindex < rightColumnData.length; jindex += 1) {
             var deleteImgRight = document.createElement('img');
@@ -55,22 +39,6 @@ function solve() {
             liRight.appendChild(textNodeRight);
             olElementRight.appendChild(liRight);
         }
-
-        // for (var itemright of rightColumnData) {
-        //     var deleteImgRight = document.createElement('img');
-        //     deleteImgRight.className = 'delete';
-        //     deleteImgRight.setAttribute('src', 'imgs/Remove-icon.png');
-        //     deleteImgRight.addEventListener('click', deleteItem);
-
-        //     var textNodeRight = document.createTextNode(itemright);
-
-        //     var liRight = document.createElement('li');
-        //     liRight.className = 'entry';
-
-        //     liRight.appendChild(deleteImgRight);
-        //     liRight.appendChild(textNodeRight);
-        //     olElementRight.appendChild(liRight);
-        // }
 
         var labelForRadioButtonLeft = document.createElement('label');
         labelForRadioButtonLeft.setAttribute('for', 'select-left-column');
@@ -116,6 +84,7 @@ function solve() {
 
         var inputField = document.createElement('input');
         inputField.setAttribute('size', '40');
+        inputField.className = 'mainsearch';
         inputField.autofocus = true;
 
         var columnContainer = document.createElement('div');
@@ -136,7 +105,7 @@ function solve() {
                 collumnToAdd = olElementRight;
             }
 
-            textNodeToAdd = root.children[1].value;
+            textNodeToAdd = root.children[1].value.trim();
             var deleteImgNew = document.createElement('img');
             deleteImgNew.className = 'delete';
             deleteImgNew.setAttribute('src', 'imgs/Remove-icon.png');
@@ -153,10 +122,11 @@ function solve() {
         }
 
         function deleteItem() {
-            var selectedTarger = event.target.parentElement,
-                inputElementDefault = root.children[1];
+            var selectedTarged = event.target.parentElement,
+                inputElementDefault = document.getElementsByClassName('mainsearch')[0];
+
             inputElementDefault.value = this.parentElement.innerText;
-            this.parentElement.parentElement.removeChild(selectedTarger);
+            this.parentElement.parentElement.removeChild(selectedTarged);
         }
     };
 }
