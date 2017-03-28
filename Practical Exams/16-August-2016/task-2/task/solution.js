@@ -1,101 +1,55 @@
 function solve() {
     return function (filesMap) {
-        'use strict';
+    return function(fileContentsByName) {
 
-        var $items = $('.file-explorer > .items'),
-            $contentsPreview = $('.file-content'),
-            $addBtn = $('.file-explorer .add-btn'),
-            $addInput = $('.file-explorer input'),
-            $fileContentsByName = JSON.parse(JSON.stringify(filesMap)),
-            $dirsByName = {};
-
-        $('.dir-item .item-name').each(function (index, element) {
-            $dirsByName[element.innerHTML] = $(element.parentNode);
+        var $existingItems = $('.file-item').each(function(i, val) {
+            var item = $(val).on('click', printContent);
         });
 
-        $items.on('click', function (event) {
-            var $target = $(event.target),
-                $parent = $target.parent(),
-                itemName,
-                previewContents;
+        var $existingDirItems = $('.dir-item').each(function(i, val) {
+            var item = $(val).on('click', folderAction);
+        });
 
-            if ($target.hasClass('del-btn')) {
+        var $deleteButtons = $('.del-btn').each(function(i, val) {
+            var item = $(val).on('click', deleteItem);
+        });
 
-                itemName = $parent.find('.item-name').html();
+        var $addButton = $('.add-btn').on('click', startSearch);
 
-                if ($parent.hasClass('dir-item')) {
-                    delete $dirsByName[itemName];
-                } else {
-                    delete $fileContentsByName[itemName];
+
+        function printContent() {
+            var $inputData = $(fileContentsByName)[0],
+                $clicketElement = $(event.target).html(),
+                $targetToPutText = $('.file-content');
+
+            for (var i in $inputData) {
+                if (i === $clicketElement) {
+                    $targetToPutText.html($inputData[i]);
                 }
-
-                $parent.remove();
-                return;
             }
-
-            if ($parent.hasClass('file-item')) {
-                previewContents = $fileContentsByName[$target.text()] || '';
-                $contentsPreview.text(previewContents);
-            }
-
-            if ($parent.hasClass('dir-item')) {
-                $parent.toggleClass('collapsed');
-            }
-
-        });
-
-        function renderFile(name) {
-            var $fileLi = $('<li />')
-                                .addClass('file-item item'),
-                $itemName = $('<a />')
-                                .text(name)
-                                .addClass('item-name')
-                                .appendTo($fileLi),
-                $delBtn = $('<a />')
-                                .addClass('del-btn')
-                                .appendTo($fileLi);
-
-            return $fileLi;
         }
 
-        $addBtn.on('click', function () {
-            $addInput.addClass('visible');
-            $addBtn.removeClass('visible');
-        });
-
-        $addInput.on('keydown', function (event) {
-            if (event.keyCode !== 13) {
-                return;
-            }
-
-            var file,
-                path = $addInput
-                            .val()
-                            .split('/');
-
-            if (!path[0] && !path[1]) {
-                return;
-            }
-                
-            if (path.length === 1) {
-                renderFile(path[0]).appendTo($items);
+        function folderAction() {
+            var $this = $(this);
+            // console.log($this);
+            if ($this.hasClass('collapsed')) {
+                $this.removeClass('collapsed');
             } else {
-                file = renderFile(path[1]);
-
-                if (!$dirsByName[path[0]]) {
-                    return;
-                }
-                    
-                $dirsByName[path[0]]
-                    .children('ul.items')
-                    .append(file);
+                $this.addClass('collapsed');
             }
+        }
 
-            $addInput.val('');
+        function deleteItem() {
+            var $itemToDelete = $(event.target).parent().remove();
+            // console.log($itemToDelete);
+        }
 
-            $addInput.removeClass('visible');
-            $addBtn.addClass('visible');
-        });
+        function startSearch() {
+            var $this = $(event.target);
+            $this.removeClass('visible');
+
+            $this.parent().children('input').addClass('visible');
+        }
     }
 }
 
