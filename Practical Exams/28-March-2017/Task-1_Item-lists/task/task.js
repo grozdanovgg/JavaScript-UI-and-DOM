@@ -78,6 +78,7 @@ function solve() {
 
         var buttonElement = document.createElement('button');
         buttonElement.innerText = 'Add';
+        buttonElement.addEventListener('click', addItem);
 
         var inputField = document.createElement('input');
         inputField.setAttribute('size', '40');
@@ -91,6 +92,31 @@ function solve() {
         root.appendChild(columnContainer);
         root.appendChild(inputField);
         root.appendChild(buttonElement);
+
+        function addItem() {
+            var collumnToAdd,
+                textNodeToAdd;
+            if (radioButtonLeft.checked) {
+                collumnToAdd = olElementLeft;
+            } else {
+                collumnToAdd = olElementRight;
+            }
+
+            textNodeToAdd = root.children[1].value;
+            var deleteImgNew = document.createElement('img');
+            deleteImgNew.className = 'delete';
+            deleteImgNew.setAttribute('src', 'imgs/Remove-icon.png');
+            var newLi = document.createElement('li');
+            newLi.className = 'entry';
+            var textNodeNew = document.createTextNode(textNodeToAdd);
+            newLi.appendChild(deleteImgNew);
+            newLi.appendChild(textNodeNew);
+            if (textNodeToAdd) {
+                collumnToAdd.appendChild(newLi);
+                root.children[1].value = '';
+            }
+
+        }
     };
 }
 
