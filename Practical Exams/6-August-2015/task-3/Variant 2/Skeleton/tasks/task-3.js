@@ -1,29 +1,102 @@
 function solve() {
-    return function (selector) {
-        var template = '<div class="event-calendar">' +
-                '<h2 class="header">Appointments for <span class="month">{{month}}</span> <span class="year">{{year}}</span></h2>' +
-                '{{#days}}' +
-                    '<div class="col-date">' +
-                        '<div class="date">{{day}}</div>' +
-                        '<div class="events">' +
-                            '{{#each events}}' +
-                                '{{#if title}}' +
-                                    '<div class="event {{importance}}" title="duration: {{duration}}">' +
-                                        '<div class="title">{{title}}</div>' +
-                                        '<span class="time">at: {{time}}</span>' +
-                                    '</div>' +
-                                '{{else}}' +
-                                    '<div class="event {{importance}}">' +
-                                        '<div class="title">Free slot</div>' +
-                                    '</div>' +
-                                '{{/if}}' +
-                            '{{/each}}' +
-                        '</div>' +
-                    '</div>' +
-                '{{/days}}' +
-        '</div>';		
-        document.getElementById(selector).innerHTML = template;
+    return function(selector) {
+        var template = [
+            '<h1>{{title}}</h1>',
+            '<ul>',
+            '	{{#each posts}}',
+            '		<li>',
+            '			<div class="post">',
+            '				<p class="author">',
+            '					{{#if author}}',
+            '						<a class="user" href="/user/{{author}}">{{author}}</a>',
+            '					{{else}}',
+            '						<a class="anonymous">Anonymous</a>',
+            '					{{/if}}',
+            '				</p>',
+            '				<pre class="content">{{{text}}}</pre>',
+            '			</div>',
+            '			<ul>',
+            '			{{#each comments}}',
+            '			{{#if deleted}}',
+            '				{{else}}',
+            '				<li>',
+            '					<div class="comment">',
+            '						{{#if author}}',
+            '						<p class="author">',
+            '							<a class="user" href="/user/{{author}}">{{author}}</a>',
+            '						</p>',
+            '					<pre class="content">{{{text}}}</pre>',
+            '						{{else}}',
+            '						<p class="author">',
+            '							<a class="anonymous">Anonymous</a>',
+            '						</p>',
+            '					<pre class="content">{{{text}}}</pre>',
+            '						{{/if}}',
+            '					</div>',
+            '				</li>',
+            '			{{/if}}',
+            '			{{/each}}',
+            '			</ul>',
+            '		</li>',
+            '		{{/each}}',
+            '</ul>'
+        ].join('');
+
+        if (template.length) {
+            document.getElementById(selector).innerHTML = template;
+        }
     };
 }
 
-module.exports = solve;
+
+
+// function solve() {
+//     return function(selector) {
+//         var template = [
+
+
+//             '<h1>{{title}}</h1>',
+//             '<ul>',
+//             '	{{#each posts}}',
+//             '		<li>',
+//             '			<div class="post">',
+//             '				<p class="author">',
+//             '					{{#if author}}',
+//             '						<a class="user" href="/user/{{author}}">{{author}}</a>',
+//             '					{{else}}',
+//             '						<a class="anonymous">Anonymous</a>',
+//             '					{{/if}}',
+//             '				</p>',
+//             '				<pre class="content">{{{text}}}</pre>',
+//             '			</div>',
+//             '			<ul>',
+//             '			{{#each comments}}',
+//             '			{{#if deleted}}',
+//             '				{{else}}',
+//             '				<li>',
+//             '					<div class="comment">',
+//             '						{{#if author}}',
+//             '						<p class="author">',
+//             '							<a class="user" href="/user/{{author}}">{{author}}</a>',
+//             '						</p>',
+//             '					<pre class="content">{{{text}}}</pre>',
+//             '						{{else}}',
+//             '						<p class="author">',
+//             '							<a class="anonymous">Anonymous</a>',
+//             '						</p>',
+//             '					<pre class="content">{{{text}}}</pre>',
+//             '						{{/if}}',
+//             '					</div>',
+//             '				</li>',
+//             '			{{/if}}',
+//             '			{{/each}}',
+//             '			</ul>',
+//             '		</li>',
+//             '		{{/each}}',
+//             '</ul>'
+//         ].join('\n');
+//         // document.getElementById(selector).innerHTML = template;
+//     };
+// }
+
+// module.exports = solve;
