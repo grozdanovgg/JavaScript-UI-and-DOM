@@ -4,8 +4,6 @@ function solve() {
         var leftComumnData = defaultLeft || [],
             rightColumnData = defaultRight || [],
             root = document.querySelector(selector);
-        console.log(leftComumnData);
-        console.log(rightColumnData);
 
 
         var olElementLeft = document.createElement('ol');
@@ -14,11 +12,13 @@ function solve() {
             deleteImgLeft.className = 'delete';
             deleteImgLeft.setAttribute('src', 'imgs/Remove-icon.png');
 
+            var textNodeLeft = document.createTextNode(itemleft);
+
             var liLeft = document.createElement('li');
             liLeft.className = 'entry';
 
-            liLeft.innerText = itemleft;
             liLeft.appendChild(deleteImgLeft);
+            liLeft.appendChild(textNodeLeft);
             olElementLeft.appendChild(liLeft);
         }
 
@@ -28,11 +28,13 @@ function solve() {
             deleteImgRight.className = 'delete';
             deleteImgRight.setAttribute('src', 'imgs/Remove-icon.png');
 
+            var textNodeRight = document.createTextNode(itemright);
+
             var liRight = document.createElement('li');
             liRight.className = 'entry';
 
-            liRight.innerText = itemright;
             liRight.appendChild(deleteImgRight);
+            liRight.appendChild(textNodeRight);
             olElementRight.appendChild(liRight);
         }
 
