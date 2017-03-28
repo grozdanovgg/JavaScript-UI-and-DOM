@@ -1,0 +1,99 @@
+function solve() {
+
+    return function(selector, defaultLeft, defaultRight) {
+        var leftComumnData = defaultLeft || [],
+            rightColumnData = defaultRight || [],
+            root = document.querySelector(selector);
+        console.log(leftComumnData);
+        console.log(rightColumnData);
+
+
+        var olElementLeft = document.createElement('ol');
+        for (var itemleft of leftComumnData) {
+            var deleteImgLeft = document.createElement('img');
+            deleteImgLeft.className = 'delete';
+            deleteImgLeft.setAttribute('src', 'imgs/Remove-icon.png');
+
+            var liLeft = document.createElement('li');
+            liLeft.className = 'entry';
+
+            liLeft.innerText = itemleft;
+            liLeft.appendChild(deleteImgLeft);
+            olElementLeft.appendChild(liLeft);
+        }
+
+        var olElementRight = document.createElement('ol');
+        for (var itemright of rightColumnData) {
+            var deleteImgRight = document.createElement('img');
+            deleteImgRight.className = 'delete';
+            deleteImgRight.setAttribute('src', 'imgs/Remove-icon.png');
+
+            var liRight = document.createElement('li');
+            liRight.className = 'entry';
+
+            liRight.innerText = itemright;
+            liRight.appendChild(deleteImgRight);
+            olElementRight.appendChild(liRight);
+        }
+
+        var labelForRadioButtonLeft = document.createElement('label');
+        labelForRadioButtonLeft.setAttribute('for', 'select-left-column');
+        labelForRadioButtonLeft.innerText = 'Add here';
+        var labelForRadioButtonRight = document.createElement('label');
+        labelForRadioButtonRight.setAttribute('for', 'select-right-column');
+        labelForRadioButtonRight.innerText = 'Add here';
+
+        var radioButtonLeft = document.createElement('input');
+        var radioButtonRight = document.createElement('input');
+        radioButtonLeft.setAttribute('type', 'radio');
+        radioButtonLeft.setAttribute('name', 'column-select');
+        radioButtonLeft.setAttribute('checked', 'checked')
+        radioButtonLeft.id = 'select-left-column';
+
+        radioButtonRight.setAttribute('type', 'radio');
+        radioButtonRight.setAttribute('name', 'column-select');
+        radioButtonRight.id = 'select-right-column';
+
+
+        var selectElementLeft = document.createElement('div');
+        var selectElementRight = document.createElement('div');
+        selectElementLeft.className = 'select';
+        selectElementRight.className = 'select';
+        selectElementLeft.appendChild(radioButtonLeft);
+        selectElementRight.appendChild(radioButtonRight);
+        selectElementLeft.appendChild(labelForRadioButtonLeft);
+        selectElementRight.appendChild(labelForRadioButtonRight);
+
+        var leftColumn = document.createElement('div');
+        leftColumn.className = 'column';
+        leftColumn.appendChild(selectElementLeft);
+        leftColumn.appendChild(olElementLeft);
+
+        var rightColumn = document.createElement('div');
+        rightColumn.className = 'column';
+        rightColumn.appendChild(selectElementRight);
+        rightColumn.appendChild(olElementRight);
+
+        var buttonElement = document.createElement('button');
+        buttonElement.innerText = 'Add';
+
+        var inputField = document.createElement('input');
+        inputField.setAttribute('size', '40');
+        inputField.autofocus = true;
+
+        var columnContainer = document.createElement('div');
+        columnContainer.className = 'column-container';
+        columnContainer.appendChild(leftColumn);
+        columnContainer.appendChild(rightColumn);
+
+        root.appendChild(columnContainer);
+        root.appendChild(inputField);
+        root.appendChild(buttonElement);
+    };
+}
+
+// SUBMIT THE CODE ABOVE THIS LINE
+
+if (typeof module !== 'undefined') {
+    module.exports = solve;
+}
