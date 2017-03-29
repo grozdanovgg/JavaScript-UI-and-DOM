@@ -121,12 +121,18 @@ function solve() {
             }
         }
 
+
         function deleteItem(event) {
 
-            var selectedTarged = event.target.parentElement;
-            var inputElementDefault = root.children[1];
+            var selectedTarged = event.target.parentElement,
+                inputElementDefault = root.children[1];
             inputElementDefault.value = this.parentElement.childNodes[1].nodeValue;
             this.parentElement.parentElement.removeChild(selectedTarged);
+
+            // var selectedTarger = event.target.parentElement,
+            //     inputElementDefault = root.children[1];
+            // inputElementDefault.value = this.parentElement.innerText;
+            // this.parentElement.parentElement.removeChild(selectedTarger);
         }
     };
 }
