@@ -121,11 +121,11 @@ function solve() {
             }
         }
 
-        function deleteItem() {
-            var selectedTarged = event.target.parentElement,
-                inputElementDefault = document.getElementsByClassName('mainsearch')[0];
+        function deleteItem(event) {
 
-            inputElementDefault.value = this.parentElement.innerText;
+            var selectedTarged = event.target.parentElement;
+            var inputElementDefault = root.children[1];
+            inputElementDefault.value = this.parentElement.childNodes[1].nodeValue;
             this.parentElement.parentElement.removeChild(selectedTarged);
         }
     };
