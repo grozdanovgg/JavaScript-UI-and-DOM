@@ -1,5 +1,4 @@
 function solve() {
-    return function (filesMap) {
     return function(fileContentsByName) {
 
         var $existingItems = $('.file-item').each(function(i, val) {
